@@ -45,9 +45,9 @@ python3 -m http.server 8765
 
 固定地址，永久有效，手机可直接打开：
 
-**https://suusann.github.io/guanji/**
+**https://suusann.github.io/**
 
-- 源码仓库：https://github.com/Suusann/guanji
+- 源码仓库：https://github.com/Suusann/Suusann.github.io
 - 托管分支：`main` 根目录，纯静态、无需构建
 - 更新方式：改完代码后
 
