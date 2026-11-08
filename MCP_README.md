@@ -12,11 +12,11 @@
 ## 固定云端网页（推荐访问方式）
 
 ```
-https://suusann.github.io/
+https://suusann.github.io/guanji/
 ```
 
-- 托管在 GitHub Pages 主仓库（Suusann.github.io），**永久有效**，不依赖本机是否开机
-- 源码仓库：https://github.com/Suusann/Suusann.github.io
+- 托管在 GitHub Pages（仓库 Suusann/guanji），**永久有效**，不依赖本机是否开机
+- 源码仓库：https://github.com/Suusann/guanji
 - 手机浏览器直接打开即可体验；也可「添加到主屏幕」当 App 用
 - 更新方式：本地改完 `index.html` / `app.js` / `assets` 后 `git commit && git push`，约 1 分钟后线上自动刷新
 
@@ -96,7 +96,7 @@ python3 test_mcp.py https://returned-portfolio-absolutely-labs.trycloudflare.com
    - 我帮你配置 `cloudflared tunnel create` + DNS route，获得固定 HTTPS 地址
 
 4. **推荐方案 C：部署到 Render / Railway**
-   - 代码已 push 到 GitHub 仓库 `Suusann/Suusann.github.io`，可直接在该仓库上建 Web Service
+   - 代码已 push 到 GitHub 仓库 `Suusann/guanji`，可直接在该仓库上建 Web Service
    - 绑定后自动获得固定公网 URL，且 SSE 原生支持（推荐用于长期稳定的 MCP endpoint）
 
 ## 服务管理命令
