@@ -7,16 +7,29 @@
 - MCP Server 已本地验证通过
 - 已暴露 8 个 tools（见下）
 - 已注册为 macOS launchd 后台服务，开机/崩溃自动重启
-- 当前公网地址（普通网页访问）：见 `.run/current-url.txt` 或下方
+- 网页部分已托管到 GitHub Pages，有永久固定地址（见下）
 
-## 公网地址
+## 固定云端网页（推荐访问方式）
+
+```
+https://suusann.github.io/guanji/
+```
+
+- 托管在 GitHub Pages，**永久有效**，不依赖本机是否开机
+- 源码仓库：https://github.com/Suusann/guanji
+- 手机浏览器直接打开即可体验；也可「添加到主屏幕」当 App 用
+- 更新方式：本地改完 `index.html` / `app.js` / `assets` 后 `git commit && git push`，约 1 分钟后线上自动刷新
+
+## MCP 临时公网地址（Cloudflare Quick Tunnel）
 
 ```
 https://returned-portfolio-absolutely-labs.trycloudflare.com
 ```
 
-> 注意：这是 Cloudflare quick tunnel 的临时域名。只要你的 Mac 不关/不睡眠，它会一直有效；一旦 cloudflared 重连，域名会变。最新地址始终保存在：
+> 注意：这是 Cloudflare quick tunnel 的临时域名，仅供 MCP 调用（`/sse`）。只要你的 Mac 不关/不睡眠，它会一直有效；一旦 cloudflared 重连，域名会变。最新地址始终保存在：
 > `/Users/zhengyanjia/黑客松小程序-音乐疗愈/.run/current-url.txt`
+>
+> 网页访问请一律使用上面的 GitHub Pages 固定地址，不要用这个临时域名。
 
 ## 支持的 MCP Tools
 
@@ -83,9 +96,8 @@ python3 test_mcp.py https://returned-portfolio-absolutely-labs.trycloudflare.com
    - 我帮你配置 `cloudflared tunnel create` + DNS route，获得固定 HTTPS 地址
 
 4. **推荐方案 C：部署到 Render / Railway**
-   - 把代码 push 到 GitHub
-   - 在 Render 新建 Web Service，绑定仓库
-   - 自动获得固定公网 URL 且 SSE 原生支持
+   - 代码已 push 到 GitHub 仓库 `Suusann/guanji`，可直接在该仓库上建 Web Service
+   - 绑定后自动获得固定公网 URL，且 SSE 原生支持（推荐用于长期稳定的 MCP endpoint）
 
 ## 服务管理命令
 
@@ -113,3 +125,5 @@ tail -f /Users/zhengyanjia/黑客松小程序-音乐疗愈/.run/mcp-cf.log
 - `test_mcp.py` — 本地/公网 SSE 测试脚本
 - `.run/com.guanji.mcp.plist` — macOS 后台服务配置
 - `.run/com.guanji.mcp-tunnel.plist` — cloudflared 隧道后台服务配置
+- `.nojekyll` — 关闭 GitHub Pages 的 Jekyll 处理（原地生效必需）
+- `.gitignore` — 排除 `.run/`、`.bin/`、`*.zip` 等本地文件

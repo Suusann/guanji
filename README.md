@@ -40,6 +40,22 @@ python3 -m http.server 8765
 
 浏览器打开 `http://127.0.0.1:8765/index.html` 即可。
 
+## 在线访问（GitHub Pages）
+
+固定地址，永久有效，手机可直接打开：
+
+**https://suusann.github.io/guanji/**
+
+- 源码仓库：https://github.com/Suusann/guanji
+- 托管分支：`main` 根目录，纯静态、无需构建
+- 更新方式：改完代码后
+
+```bash
+git add -A && git commit -m "update" && git push
+```
+
+推送后约 1 分钟线上自动生效（Actions → pages build and deployment 可看构建进度）。
+
 ## 使用流程
 
 1. **首页**：查看今日心境推荐，右上角金色 ＋ 号可以导入你自己的本地音乐；三个「放松 / 专注 / 睡前」快捷键切换文案与推荐主题。
