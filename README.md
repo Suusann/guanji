@@ -16,18 +16,19 @@
 ├── index.html                      单页面结构与样式
 ├── app.js                          交互、计时、音乐、心境画生成
 ├── assets/
-│   ├── guqin-spring.mp3            中式水韵 · 李祥霆 · 春风又绿江南岸
-│   ├── wuxing-jin-xiyangxiaogu.mp3 五行 · 金 · 夕阳箫鼓
-│   ├── wuxing-mu-manliuban.mp3     五行 · 木 · 慢六板
-│   ├── wuxing-shui-liushuixingyun.mp3 五行 · 水 · 流水行云
-│   ├── wuxing-huo-caiyunzhuiyue.mp3 五行 · 火 · 彩云追月
-│   ├── wuxing-tu-shimianmaifu.mp3  五行 · 土 · 十面埋伏
-│   ├── japan-haru-no-umi.mp3       日本留白 · 吉村七重 · Haru no Umi
-│   └── west-mozart-k448-andante.mp3 欧美氛围 · 莫扎特 K.448 II. Andante
-└── avatar.png                      Agent 头像
+│   ├── guqin-spring.m4a            中式水韵 · 李祥霆 · 春风又绿江南岸
+│   ├── wuxing-jin-xiyangxiaogu.m4a 五行 · 金 · 夕阳箫鼓
+│   ├── wuxing-mu-manliuban.m4a     五行 · 木 · 慢六板
+│   ├── wuxing-shui-liushuixingyun.m4a 五行 · 水 · 流水行云
+│   ├── wuxing-huo-caiyunzhuiyue.m4a 五行 · 火 · 彩云追月
+│   ├── wuxing-tu-shimianmaifu.m4a  五行 · 土 · 十面埋伏
+│   ├── japan-haru-no-umi.m4a       日本留白 · 吉村七重 · Haru no Umi
+│   ├── west-mozart-k448-andante.m4a 欧美氛围 · 莫扎特 K.448 II. Andante
+│   └── bali-bacchanale.m4a         印尼流光 · Sanggar Ceraken of Bali · Bacchanale
+└── avatar.jpg                      Agent 头像
 ```
 
-> 注：印尼流光对应曲目 Sanggar Ceraken of Bali 的源文件是 .ncm 加密格式，浏览器无法直接播放，界面已明示「暂无试听」，用户可用右上角＋号导入自己的音源。
+> 注：印尼流光曲目为 John Cage《Bacchanale》（预备钢琴），由 Sanggar Ceraken of Bali 演绎，源 FLAC 已转为 AAC 内置，可直接试听。
 
 ## 本地启动
 
@@ -78,6 +79,5 @@ git add -A && git commit -m "update" && git push
 
 ## 已知限制
 
-- 印尼流光暂无内置试听音源，需要自己导入。
 - 心率、连续静坐天数为原型演示数据，未接入真实健康数据。
 - 音乐版权归各自权利人所有，本原型仅作演示，请勿用于公开分发。

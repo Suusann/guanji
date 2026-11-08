@@ -12,7 +12,7 @@ const musicThemes=[
   {key:'中式水韵',title:'中式水韵',desc:'古琴、箫、水声',style:'ink',track:{name:'春风又绿江南岸',artist:'李祥霆',src:'assets/guqin-spring.m4a',desc:'中式水韵 · 古琴试听'}},
   {key:'五行灵感',title:'五行灵感',desc:'金、木、水、火、土',style:'ink',wuxing:true},
   {key:'日本留白',title:'日本留白',desc:'尺八、筝、细雨',style:'japan',track:{name:'Haru no Umi 春之海',artist:'吉村七重',src:'assets/japan-haru-no-umi.m4a',desc:'日本留白 · 筝与尺八'}},
-  {key:'印尼流光',title:'印尼流光',desc:'甘美兰、雨林、海浪',style:'bali',track:{name:'Bacchanale',artist:'Sanggar Ceraken of Bali',src:'',desc:'印尼流光 · 甘美兰（暂无试听）'}},
+  {key:'印尼流光',title:'印尼流光',desc:'甘美兰、雨林、海浪',style:'bali',track:{name:'Bacchanale',artist:'Sanggar Ceraken of Bali',src:'assets/bali-bacchanale.m4a',desc:'印尼流光 · 甘美兰与预备钢琴'}},
   {key:'欧美氛围',title:'欧美氛围',desc:'钢琴双奏、莫扎特 K.448',style:'oil',track:{name:'Sonata for 2 Pianos K.448 · II. Andante',artist:'Clifford Curzon & Benjamin Britten',src:'assets/west-mozart-k448-andante.m4a',desc:'欧美氛围 · 双钢琴慢板'}}
 ];
 
