@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>观己 · 冥想原型</title>
+<style>
+:root{--ink:#18383b;--deep:#0d2429;--mist:#f4f4ef;--paper:#fbfbf8;--jade:#8fa99e;--moss:#6f877c;--gold:#c8aa68;--line:#e6e5de;--muted:#788280;--serif:STSong,"Songti SC",serif;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#e9ece8;color:var(--ink);font-family:var(--sans);letter-spacing:.02em}
+.phone{width:min(100vw,393px);height:100dvh;min-height:680px;margin:auto;position:relative;overflow:hidden;background:var(--paper);box-shadow:0 0 45px #23352b22}
+.screen{display:none;height:100%;overflow-y:auto;padding:54px 20px 98px;animation:enter .45s ease}
+.screen.active{display:block}
+.screen::-webkit-scrollbar{display:none}
+@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+button{font:inherit;border:0;cursor:pointer;color:inherit}
+.topline{display:flex;align-items:center;justify-content:space-between}
+.top-tools{display:flex;gap:8px}
+.eyebrow{font-size:12px;color:var(--muted)}
+.icon-btn{width:38px;height:38px;border-radius:50%;background:#f0f2ed;color:var(--ink);font-size:18px;display:grid;place-items:center}
+.icon-btn.gold{background:linear-gradient(135deg,#efe3c4,#d4b476);color:#3a2b12;box-shadow:0 6px 12px #b28d4322}
+.title{font:400 29px/1.25 var(--serif);letter-spacing:.08em;margin:15px 0 5px}
+.sub{font-size:13px;color:var(--muted);line-height:1.6}
+.home-art{height:270px;margin:27px 0 18px;border-radius:25px;overflow:hidden;position:relative;background:linear-gradient(145deg,#e8efeb,#cedcd5 56%,#b5c9c3);box-shadow:0 15px 32px #33534718}
+.home-art svg{width:100%;height:100%}
+.art-text{position:absolute;left:25px;bottom:25px;color:#163638}
+.art-text small{font-size:12px;opacity:.75}
+.art-text b{display:block;font:400 23px/1.35 var(--serif);letter-spacing:.05em;margin-top:6px}
+.primary{width:100%;border-radius:17px;background:var(--ink);color:#fff;padding:17px;font-size:15px;box-shadow:0 10px 18px #193a3a22}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 22px}
+.quick button{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px 4px;font-size:13px;transition:.25s}
+.quick button.active{color:#fff;background:var(--moss);border-color:var(--moss)}
+.status{border:1px solid var(--line);border-radius:18px;padding:16px;background:#fff}
+.status-head{font-size:13px;margin-bottom:14px}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.status-grid div{padding-left:12px;border-left:1px solid var(--line)}
+.status-grid div:first-child{padding-left:0;border:0}
+.status-grid b{font-size:14px;display:block;font-weight:500}
+.status-grid span{font-size:11px;color:var(--muted);display:block;margin-top:5px}
+.nav{position:absolute;bottom:0;left:0;right:0;height:77px;display:flex;justify-content:space-around;align-items:center;background:#fffffff2;border-top:1px solid #eeeeea;backdrop-filter:blur(12px);z-index:5}
+.nav.hidden{display:none}
+.nav button{background:none;color:#87908c;font-size:11px;display:grid;gap:4px;place-items:center}
+.nav button b{font-size:20px;font-weight:400}
+.nav button.active{color:var(--ink)}
+.back{background:none;color:var(--muted);padding:0;font-size:14px}
+.prepare{padding-bottom:118px;scroll-padding-bottom:118px}
+.prepare .section:last-child{margin-bottom:24px}
+.section{margin-top:26px}
+.section h3{margin:0 0 11px;font-size:13px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;font-size:12px;transition:.2s}
+.chip.selected{background:#e6eee9;border-color:#a6bbb0;color:#244940}
+.music-list{display:grid;gap:9px}
+.music{padding:13px 14px;background:#fff;border:1px solid var(--line);border-radius:14px;text-align:left;position:relative}
+.music b{font-size:13px;font-weight:500}
+.music span{display:block;font-size:11px;color:var(--muted);margin-top:4px}
+.music.selected{border-color:#90aa9e;background:#f0f5f1}
+.music.selected:after{content:'✓';position:absolute;right:14px;top:16px;color:#507768}
+.wuxing{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:8px}
+.wuxing button{border:1px solid var(--line);border-radius:12px;background:#fff;padding:9px 4px;font:400 13px var(--serif);color:#3a4a4d}
+.wuxing button.selected{color:#fff;border-color:transparent}
+.wuxing button[data-el="金"].selected{background:linear-gradient(135deg,#c9a558,#8a6f26)}
+.wuxing button[data-el="木"].selected{background:linear-gradient(135deg,#7fa872,#3f6a42)}
+.wuxing button[data-el="水"].selected{background:linear-gradient(135deg,#6ea6c1,#2c5d7a)}
+.wuxing button[data-el="火"].selected{background:linear-gradient(135deg,#d68763,#a63b23)}
+.wuxing button[data-el="土"].selected{background:linear-gradient(135deg,#b09070,#6c4f2f)}
+.audio-preview{margin-top:12px;padding:14px;border-radius:16px;background:linear-gradient(140deg,#243a3d 0%,#3f6462 55%,#c8aa68 130%);color:#f6f2e2;box-shadow:0 12px 24px #1f383a33}
+.audio-preview b{font-size:12px;font-weight:500;color:#fff}
+.audio-preview small{display:block;color:#e2dcc4;font-size:11px;margin-top:4px}
+.audio-preview-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.audio-toggle{width:36px;height:36px;border-radius:50%;background:#f4e5b8;color:#3a2b12;font-size:14px;flex:none;box-shadow:0 4px 10px #00000033}
+.audio-progress{appearance:none;width:100%;height:3px;background:#ffffff33;border-radius:99px;margin:12px 0 0;accent-color:#f4e5b8}
+.audio-time{display:flex;justify-content:space-between;font-size:10px;color:#e2dcc4;margin-top:2px}
+.practice-audio{display:flex;align-items:center;justify-content:center;gap:8px;font-size:11px;color:#c4d0c7;margin-top:16px;flex:none}
+.practice-audio button{width:28px;height:28px;border-radius:50%;background:#ffffff1a;color:#fff;border:1px solid #ffffff2b;font-size:11px}
+.practice-actions{position:absolute;z-index:2;left:20px;right:20px;bottom:max(20px,env(safe-area-inset-bottom));margin:0;display:flex;gap:11px}
+.practice-actions button{flex:1;border-radius:15px;padding:15px;background:#ffffff1a;color:#edf2eb;border:1px solid #ffffff2b}
+.practice-actions button:last-child{background:#d8a973;color:#213337;border:0}
+.small-title{font:400 25px var(--serif);margin:14px 0 3px}
+.practice{background:var(--deep);color:#eff3eb;padding:55px 20px calc(112px + env(safe-area-inset-bottom));text-align:center;overflow-y:auto}
+.practice.active{display:flex;flex-direction:column}
+.practice .topline{color:#d8dfd8;flex:none}
+.timer{font:400 36px var(--serif);letter-spacing:.13em;margin-top:20px;flex:none}
+.breath-stage{margin:auto 0 28px;position:relative;height:315px;display:grid;place-items:center}
+.ripple,.ripple:before,.ripple:after{position:absolute;border-radius:50%;border:1px solid #b8d1c455;content:''}
+.ripple{width:202px;height:202px;background:radial-gradient(circle,#87aaa87a 0 28%,#507e7955 45%,transparent 68%);animation:breathe 19s ease-in-out infinite}
+.ripple:before{inset:-20px;animation:wave 4s ease-out infinite}
+.ripple:after{inset:-42px;animation:wave 4s 1.3s ease-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.8)}21.05%{transform:scale(1.12)}57.89%{transform:scale(1.12)}100%{transform:scale(.8)}}
+@keyframes wave{from{transform:scale(.7);opacity:.9}to{transform:scale(1.45);opacity:0}}
+.breath-copy{position:relative;z-index:1}
+.breath-copy b{font:400 31px var(--serif);display:block}
+.breath-copy span{font-size:13px;color:#c7d3cb;display:block;margin-top:11px}
+.live{display:flex;justify-content:center;gap:25px;font-size:12px;color:#c4d0c7}
+.live b{font-weight:500;color:#fff}
+.quote{font:400 18px/1.7 var(--serif);margin:24px 20px;color:#e2e8e1}
+.report-title{font:400 27px/1.45 var(--serif);margin:15px 0 7px}
+.summary{font-size:12px;color:var(--muted)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:23px 0}
+.compare div{border:1px solid var(--line);border-radius:17px;padding:15px;background:#fff}
+.compare small{color:var(--muted);font-size:11px}
+.compare b{font-size:18px;font-weight:500;display:block;margin:11px 0 4px}
+.compare span{font-size:12px}
+.chart{border:1px solid var(--line);background:#fff;border-radius:18px;padding:15px;margin-bottom:18px}
+.chart-head{display:flex;justify-content:space-between;font-size:12px}
+.chart-head span{color:#658d80}
+.chart svg{width:100%;height:94px;margin-top:8px}
+.feedback{border-left:2px solid var(--gold);padding:4px 0 4px 13px;color:#586360;font:400 16px/1.7 var(--serif);margin:23px 4px 25px}
+.loader{position:absolute;z-index:12;inset:0;background:#102a2ce8;color:#eff3ed;display:none;place-items:center;text-align:center}
+.loader.show{display:grid}
+.loader-ring{width:128px;height:128px;border:1px solid #bfd6c8;border-left-color:transparent;border-radius:50%;animation:spin 2.2s linear infinite;margin:auto}
+.loader-inner{margin-top:-93px}
+.loader-inner b{font:400 21px var(--serif);display:block}
+.loader-inner span{font-size:12px;color:#c9d5cd;display:block;margin-top:12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gallery-title{font:400 27px var(--serif);margin:13px 0 3px}
+.style-badge{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:99px;background:#edf1ed;color:#4a6a5e;font-size:11px}
+.painting{height:340px;border-radius:23px;overflow:hidden;margin:16px 0 18px;background:#c9d7d0;box-shadow:0 15px 28px #1b393020}
+.painting svg{width:100%;height:100%;display:block}
+.painting-name{font:400 25px var(--serif);margin:0 0 9px}
+.description{font-size:13px;color:#66706c;line-height:1.75;margin:0}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0}
+.tag{font-size:11px;padding:7px 10px;border-radius:99px;background:#edf1ed;color:#507066}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions button{padding:13px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:12px}
+.actions button.saved{background:#e5eee8;color:#3e6656;border-color:#a5bcae}
+.actions .home-return{grid-column:1/-1;background:var(--ink);color:#fff}
+.album{margin-top:25px;padding-top:18px;border-top:1px solid var(--line)}
+.album-head{display:flex;justify-content:space-between;align-items:center}
+.album-head h3{margin:0;font-size:14px;font-weight:500}
+.album-head span{font-size:11px;color:var(--muted)}
+.thumbs{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:13px}
+.thumb{aspect-ratio:.7;border-radius:7px;border:2px solid transparent;background:linear-gradient(150deg,#d7e1d9,#708d86);padding:0}
+.thumb:nth-child(2){background:linear-gradient(150deg,#dcd8c5,#8b9b89)}
+.thumb:nth-child(3){background:linear-gradient(150deg,#ccd7e0,#586e80)}
+.thumb:nth-child(4){background:linear-gradient(150deg,#e1d3c8,#987e70)}
+.thumb:nth-child(5){background:linear-gradient(150deg,#d1dee0,#6a8d8a)}
+.thumb:nth-child(6){background:linear-gradient(150deg,#d7d1e0,#6f6a85)}
+.thumb.active{border-color:var(--gold);box-shadow:0 0 0 2px #f6f0de}
+.toast{position:absolute;z-index:20;left:50%;bottom:90px;transform:translateX(-50%) translateY(20px);background:#16383acc;color:#fff;padding:10px 16px;border-radius:99px;font-size:12px;opacity:0;transition:.25s;pointer-events:none}
+.toast.show{transform:translateX(-50%);opacity:1}
+.custom-list{display:grid;gap:6px;margin-top:8px}
+.custom-item{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:#fff;border:1px dashed #b5c4bc;border-radius:12px;font-size:12px}
+.custom-item span{color:var(--muted);font-size:11px}
+.custom-item button{background:none;color:#a66757;font-size:11px;padding:0}
+@media(min-width:600px){body{display:grid;place-items:center;min-height:100vh}.phone{height:852px;border-radius:28px}}
+</style>
+</head>
+<body><main class="phone">
+<section class="screen active" id="home">
+  <div class="topline">
+    <span class="eyebrow">观己 · 今日心境</span>
+    <div class="top-tools">
+      <button class="icon-btn gold" title="导入你的疗愈音乐" onclick="openImport()">＋</button>
+      <button class="icon-btn" title="夜间模式">☾</button>
+    </div>
+  </div>
+  <h1 class="title">早上好，愿你心有所安</h1>
+  <p class="sub" id="home-sub">今天不必追赶什么，先听一听自己的呼吸。</p>
+  <div class="home-art"><svg viewBox="0 0 353 270" aria-label="水墨湖景"><defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#ecf2ed"/><stop offset="1" stop-color="#b8cec5"/></linearGradient><filter id="blur"><feGaussianBlur stdDeviation="12"/></filter></defs><rect width="353" height="270" fill="url(#bg)"/><circle cx="278" cy="58" r="29" fill="#fffbed" opacity=".78"/><path d="M-20 144Q55 78 108 143T230 123T375 142V200H-20Z" fill="#66877e" opacity=".36" filter="url(#blur)"/><path d="M-20 170Q50 137 110 167T219 158T375 169V196H-20Z" fill="#32685f" opacity=".52"/><path d="M0 205Q84 190 177 204T353 200" fill="none" stroke="#eff5ef" stroke-width="2" opacity=".8"/><path d="M20 221Q100 211 180 222T338 216M42 237Q127 229 227 239" fill="none" stroke="#5c9288" stroke-width="1.3" opacity=".65"/></svg><div class="art-text"><small id="art-theme">中式水韵 · 今日推荐</small><b id="art-copy">此刻，适合听一段<br>水声与古琴</b></div></div>
+  <button class="primary" onclick="show('prepare')">开始观己</button>
+  <div class="quick"><button class="active" onclick="quick(this,'放松')">放松</button><button onclick="quick(this,'专注')">专注</button><button onclick="quick(this,'睡前')">睡前</button></div>
+  <div class="status"><div class="status-head" id="status-title">今日状态 · 轻轻看见自己</div><div class="status-grid"><div><b>76 bpm</b><span>心率</span></div><div><b>稍显急促</b><span>呼吸</span></div><div><b>3 天</b><span>连续静坐</span></div></div></div>
+</section>
+<nav class="nav" aria-label="底部导航"><button class="active" onclick="show('home')"><b>⌂</b>首页</button><button onclick="show('art')"><b>▧</b>画册</button><button onclick="toast('我的空间将在下一版开放')"><b>◯</b>我的</button></nav>
+<section class="screen prepare" id="prepare"><button class="back" onclick="show('home')">‹ 返回</button><h2 class="small-title">为此刻选一处心境</h2><p class="sub">每一次选择，都会成为心境画的一笔。</p>
+<div class="section"><h3>冥想时长</h3><div class="chips" data-group="duration"><button class="chip">5分钟</button><button class="chip selected">10分钟</button><button class="chip">15分钟</button></div></div>
+<div class="section"><h3>冥想意图</h3><div class="chips" data-group="intent"><button class="chip selected">放松</button><button class="chip">专注</button><button class="chip">安睡</button><button class="chip">情绪平复</button></div></div>
+<div class="section"><h3>我正身处</h3><div class="chips" data-group="current"><button class="chip selected">办公室</button><button class="chip">通勤途中</button><button class="chip">卧室</button><button class="chip">嘈杂空间</button><button class="chip">自然户外</button></div></div>
+<div class="section"><h3>我想去往</h3><div class="chips" data-group="desired"><button class="chip">山林</button><button class="chip selected">湖边</button><button class="chip">海岛</button><button class="chip">庭园</button><button class="chip">星夜</button><button class="chip">云端</button></div></div>
+<div class="section"><h3>音乐主题</h3>
+  <div class="music-list" id="music-list"></div>
+  <div class="wuxing" id="wuxing" hidden></div>
+  <div class="custom-list" id="custom-list"></div>
+  <div class="audio-preview" id="audio-preview">
+    <div class="audio-preview-top">
+      <div>
+        <b id="track-name">加载中</b>
+        <small id="track-desc">从右上角＋号可加入你自己的音乐</small>
+      </div>
+      <button class="audio-toggle" id="preview-toggle" onclick="toggleAudio()">▶</button>
+    </div>
+    <input class="audio-progress" id="audio-progress" type="range" min="0" max="100" value="0" oninput="seekAudio(this.value)">
+    <div class="audio-time"><span id="audio-current">00:00</span><span id="audio-duration">加载中</span></div>
+  </div>
+</div>
+<div class="section"><h3>呼吸节奏</h3><div class="chips" data-group="breath"><button class="chip selected">4吸-7停-8呼</button></div></div>
+<div class="section"><button class="primary" onclick="startPractice()">进入此刻</button></div>
+</section>
+<section class="screen practice" id="practice"><div class="topline"><span class="eyebrow" style="color:#bfcac3">正在观己</span><span id="timer">10:00</span></div><div class="breath-stage"><div class="ripple"></div><div class="breath-copy"><b id="phase">吸气 4</b><span id="phase-tip">让气息慢慢落下</span></div></div><div class="live"><span>心率 <b id="live-hr">72 bpm</b></span><span>呼吸 <b>渐稳</b></span></div><p class="quote">念头来时，看见它，再让它经过</p><div class="practice-audio"><button id="practice-audio-toggle" onclick="toggleAudio()">▶</button><span id="practice-track">李祥霆 · 春风又绿江南岸</span></div><div class="practice-actions"><button id="pause" onclick="togglePause()">暂停</button><button onclick="endPractice()">结束</button></div></section>
+<section class="screen" id="report"><button class="back" onclick="show('home')">‹ 返回首页</button><h2 class="report-title">你从喧闹中，<br>抵达了一片湖</h2><p class="summary" id="report-summary">10 分钟 · 中式水韵 · 湖边</p><div class="compare"><div><small>冥想前</small><b>76 bpm</b><span>忙乱 · 办公室</span></div><div><small>冥想后</small><b>68 bpm</b><span>平静 · 湖边</span></div></div><div class="chart"><div class="chart-head"><b>心率变化</b><span>后半程渐趋平稳</span></div><svg viewBox="0 0 340 94" preserveAspectRatio="none"><path d="M0 64H340" stroke="#e8ece7"/><path d="M2 37 C15 12,27 70,42 42 S64 19,77 45 S96 69,111 39 S132 24,146 45 S164 53,180 42 S199 37,214 43 S232 45,248 42 S272 44,290 42 S318 43,338 42" fill="none" stroke="#4d8276" stroke-width="2.2" stroke-linecap="round"/></svg></div><p class="feedback">后半程的呼吸更均匀。音乐与呼吸，为你留出了一些安静的空间。</p><button class="primary" onclick="generateArt()">生成我的心境画</button></section>
+<section class="screen" id="art"><button class="back" onclick="show('report')">‹ 本次回望</button><h2 class="gallery-title">今日心迹</h2><p class="sub">音乐的节奏，会决定画面的细腻度</p><span class="style-badge" id="style-badge">国风水墨</span><div class="painting" id="painting"></div><h3 class="painting-name" id="painting-name">湖上微光</h3><p class="description" id="painting-desc">湖面的纹理由你的呼吸节奏绘成。远处的微光，来自冥想后你选择的平静。</p><div class="tags" id="art-tags"></div><div class="actions"><button id="save-btn" onclick="saveArt()">收藏画作</button><button onclick="toast('心境已备好，等待你的分享')">分享心境</button><button class="home-return" onclick="completeHome()">返回首页</button></div><div class="album"><div class="album-head"><h3>七日画册</h3><span>点击回看心迹</span></div><div class="thumbs" id="thumbs"><button class="thumb"></button><button class="thumb"></button><button class="thumb"></button><button class="thumb"></button><button class="thumb"></button><button class="thumb"></button><button class="thumb active"></button></div></div></section>
+<audio id="player" preload="metadata"></audio>
+<input type="file" id="import-input" accept="audio/*" hidden />
+<div class="loader" id="loader"><div><div class="loader-ring"></div><div class="loader-inner"><b id="load-word">收集呼吸</b><span>让此刻慢慢显影</span></div></div></div>
+<div class="toast" id="toast"></div>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

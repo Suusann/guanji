@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# 本地运行态（隧道地址、日志、plist）
+.run/
+
+# 本地二进制与 IDE 配置
+.bin/
+.trae/
+
+# 大文件压缩包（不入库，仓库只放可直接部署的站点文件）
+*.zip
+
+# Python
+__pycache__/
+*.pyc
